@@ -39,7 +39,6 @@ struct block
 /* Functions. */
 int		random_int(int n);
 void	setup_game();
-void	draw_block(block block);
 
 
 #endif
