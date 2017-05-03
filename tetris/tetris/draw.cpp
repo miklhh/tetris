@@ -82,7 +82,7 @@ void draw_block(block block, int tile_x, int tile_y)
 			{
 				draw_box(
 					(tile_x + x) * block_width,
-					(tile_y + y) * block_height,
+					(tile_y + y) * block_width,
 					block_width,
 					block_height,
 					COLOR_BACKGROUND_BACK,

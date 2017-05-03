@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\C++ Programing\SDL2-2.0.5_VS\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\C++ Programing\SDL2-2.0.5_VS\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\mikez\Desktop\Mikael\Programmering\SDL2-2.0.5 - VS\include;E:\C++ Programing\SDL2-2.0.5_VS\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\mikez\Desktop\Mikael\Programmering\SDL2-2.0.5 - VS\lib\x86;E:\C++ Programing\SDL2-2.0.5_VS\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
