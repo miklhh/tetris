@@ -33,8 +33,8 @@ void draw_box(
 	int y,
 	int w,
 	int h,
-	int inner_color,
-	int outer_color,
+	int color_forth,
+	int color_back,
 	SDL_Renderer* renderer,
 	int margin
 )
@@ -55,13 +55,13 @@ void draw_box(
 	rectangle_inner.y = y + margin;
 
 	/* Draw outer rectangle. */
-	SetColor(outer_color, renderer);
+	SetColor(color_back, renderer);
 	SDL_RenderFillRect(renderer, &rectangle_outer);
 	SDL_RenderDrawRect(renderer, &rectangle_outer);
 
 
 	/* Draw inner rectangle. */
-	SetColor(inner_color, renderer);
+	SetColor(color_forth, renderer);
 	SDL_RenderFillRect(renderer, &rectangle_inner);
 	SDL_RenderDrawRect(renderer, &rectangle_inner);
 
@@ -85,8 +85,8 @@ void draw_block(block block, int tile_x, int tile_y)
 					(tile_y + y) * block_width,
 					block_width,
 					block_height,
-					COLOR_BACKGROUND_BACK,
 					block.color,
+					COLOR_BACKGROUND_BACK,
 					renderer
 				);
 			}

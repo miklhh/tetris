@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="super_rotation_system.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="draw.cpp" />
@@ -167,6 +168,9 @@
     <ClInclude Include="exit_game.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="get_window_size.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="SRS-pieces.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

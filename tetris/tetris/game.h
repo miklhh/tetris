@@ -32,6 +32,7 @@ struct block_struct
 struct block
 {
 	int				color;
+	int				block_type;
 	pair			center;
 	block_struct	structure;
 };
@@ -39,6 +40,7 @@ struct block
 /* Functions. */
 int		random_int(int n);
 void	setup_game();
+void	rotate_block(block* block, bool counter_clockwise);
 
 
 #endif

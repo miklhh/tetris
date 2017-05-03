@@ -36,4 +36,79 @@ void setup_game()
 	
 }
 
+/* Help function to do matrix rotation of a block. */
+static void rotate_block_matrix(block* block, bool counter_clockwise, int matrix_size)
+{
+	block_struct rotated_block_structure;
+	if (counter_clockwise) 
+	{
+		/* Counter closewise rotation. */
+		for (int y = 0; y < (matrix_size); y++)
+		{
+			for (int x = 0; x < (matrix_size); x++)
+			{
+				rotated_block_structure.tile[(matrix_size-1) - x][y] = block->structure.tile[y][x];
+			}
+		}
+	}
+	else
+	{
+		/* Clockwise rotation. */
+		for (int y = 0; y < (matrix_size); y++)
+		{
+			for (int x = 0; x < (matrix_size); x++)
+			{
+				rotated_block_structure.tile[x][(matrix_size-1) - y] = block->structure.tile[y][x];
+			}
+		}
+	}
+
+	/* Give the rotated structure to the block. */
+	block->structure = rotated_block_structure;
+}
+
+void rotate_block(block* block, bool counter_clockwise)
+{
+	/* Switch statement for all the blocks. */
+	switch (block->block_type)
+	{
+	case BLOCK_I:
+		/* Rotate normaly within all the four tiles.*/
+		rotate_block_matrix(block, counter_clockwise, 4);
+		break;
+
+	case BLOCK_J:
+		/* Rotate normaly within the upper left three tiles. */
+		rotate_block_matrix(block, counter_clockwise, 3);
+		break;
+
+	case BLOCK_L:
+		/* Rotate normaly within the upper left three tiles. */
+		rotate_block_matrix(block, counter_clockwise, 3);
+		break;
+
+	case BLOCK_O:
+		/* Do not rotate this block at all. */
+		break;
+
+	case BLOCK_S:
+		/* Rotate normaly within the upper left three tiles. */
+		rotate_block_matrix(block, counter_clockwise, 3);
+		break;
+
+	case BLOCK_T:
+		/* Rotate normaly within the upper left three tiles. */
+		rotate_block_matrix(block, counter_clockwise, 3);
+		break;
+
+	case BLOCK_Z:
+		/* Rotate normaly within the upper left three tiles. */
+		rotate_block_matrix(block, counter_clockwise, 3);
+		break;
+
+	default:
+		break;
+	}
+}
+
 
