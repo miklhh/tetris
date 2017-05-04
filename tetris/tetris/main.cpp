@@ -20,6 +20,8 @@ int				window_height = 0;
 int				block_width = 0;
 int				block_height = 0;
 
+/* GAME FIELD FOR DEBUGING. */
+extern box_t field[GRID_HEIGHT][GRID_WIDTH];
 
 int main(int argc, char* argv[])
 {
@@ -83,36 +85,30 @@ int main(int argc, char* argv[])
 
 	
 
-	block test_block_t = block_ref_t;
-	block test_block_j = block_ref_j;
-	block test_block_s = block_ref_s;
-	block test_block_z = block_ref_z;
-	block test_block_l = block_ref_l;
-	block test_block_o = block_ref_o;
-	block test_block_i = block_ref_i;
+	block_t test_block_t = block_ref_t;
+	block_rotate(&test_block_t, true);
+	block_rotate(&test_block_t, true);
+	block_rotate(&test_block_t, true);
+	test_block_t.position.x = 4;
+	test_block_t.position.y = 1;
+	block_t test_block_j = block_ref_j;
+	block_t test_block_s = block_ref_s;
+	block_t test_block_z = block_ref_z;
+	block_t test_block_l = block_ref_l;
+	block_t test_block_o = block_ref_o;
+	block_t test_block_i = block_ref_i;
+	test_block_z.position.x = 4;
+	test_block_z.position.y = 5;
 
 	bool is_running = true;
 	while (is_running)
 	{
-		/* Draw background. */
-		for (int x = 0; x < 10; x++)
-		{
-			for (int y = 0; y < 20; y++)
-			{
-				draw_box(
-					window_width/20*x, 
-					window_height/20*y, 
-					block_width, 
-					block_height, 
-					COLOR_RED, 
-					COLOR_BLUE, 
-					renderer, 
-					1);
-			}
-		}
+		/* Clear the screen. */
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_RenderClear(renderer);
 
-
-
+		/* Draw the field. */
+		draw_field(field);
 
 		
 		test_block_t.color = COLOR_GREEN;
@@ -122,18 +118,28 @@ int main(int argc, char* argv[])
 		test_block_o.color = COLOR_GREEN;
 
 
-		rotate_block(&test_block_t, false);
-		rotate_block(&test_block_j, false);
-		rotate_block(&test_block_s, false);
-		rotate_block(&test_block_z, false);
-		rotate_block(&test_block_l, false);
-		rotate_block(&test_block_o, false);
-		rotate_block(&test_block_i, false);
 
-		draw_block(test_block_t, 2, 1);
+		block_rotate(&test_block_j, true);
+		block_rotate(&test_block_s, true);
+		block_rotate(&test_block_l, true);
+		block_rotate(&test_block_o, true);
+		block_rotate(&test_block_i, true);
+
+		if (test_rotatable(&test_block_t, true) == NO_COLLISION)
+		{
+			block_rotate(&test_block_t, true);
+			block_move(&test_block_t, DIRECTION_LEFT);
+		}
+
+		if (test_movable(&test_block_z, DIRECTION_UP) == NO_COLLISION)
+		{
+			block_move(&test_block_z, DIRECTION_UP);
+		}
+		draw_block(test_block_t, test_block_t.position.x, test_block_t.position.y);
+		draw_block(test_block_z, test_block_z.position.x, test_block_z.position.y);
 		draw_block(test_block_j, 6, 1);
 		draw_block(test_block_s, 2, 5);
-		draw_block(test_block_z, 6, 5);
+		
 		draw_block(test_block_l, 2, 10);
 		draw_block(test_block_o, 6, 10);
 		draw_block(test_block_i, 5, 15);

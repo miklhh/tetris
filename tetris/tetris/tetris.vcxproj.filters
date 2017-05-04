@@ -53,6 +53,9 @@
     <ClInclude Include="blocks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="data_structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SRS-pieces.png">

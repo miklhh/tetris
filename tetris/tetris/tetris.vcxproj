@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blocks.h" />
+    <ClInclude Include="data_structures.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="exit_game.h" />
     <ClInclude Include="game.h" />
