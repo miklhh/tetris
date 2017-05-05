@@ -47,14 +47,14 @@ static void SetColor(int color, SDL_Renderer* renderer)
 
 /* Function for drawing a 'block' to a renderer. */
 void draw_box(
-	int x_px,
-	int y_px,
-	int w_px,
-	int h_px,
-	color_t color_forth,
-	color_t color_back,
-	SDL_Renderer* renderer,
-	int margin
+	int				x_px,
+	int				y_px,
+	int				w_px,
+	int				h_px,
+	color_t			color_forth,
+	color_t			color_back,
+	SDL_Renderer*	renderer,
+	int				margin
 )
 {
 	/* Create rectangles. */
@@ -126,8 +126,8 @@ void draw_field(box_t field[GRID_HEIGHT][GRID_WIDTH])
 			draw_box(
 				x * block_width, y * block_height,	// Position.
 				block_width, block_height,			// Size.
-				field[x][y].color_f,				// Foreground color.
-				field[x][y].color_b,				// Background color.
+				field[x][y].color_f,					// Foreground color.
+				field[x][y].color_b,					// Background color.
 				renderer,							// Renderer to draw to.
 				GLOBAL_MARGIN						// Margin level (px).
 			);
