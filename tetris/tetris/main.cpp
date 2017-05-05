@@ -11,14 +11,14 @@
 
 
 /* Windows, renderer and window variables. */
-SDL_DisplayMode	display_mode;
-SDL_Event		events;
-SDL_Window*		window = NULL;
-SDL_Renderer*	renderer = NULL;
-int				window_width = 0;
-int				window_height = 0;
-int				block_width = 0;
-int				block_height = 0;
+SDL_DisplayMode display_mode;
+SDL_Event       events;
+SDL_Window*     window = NULL;
+SDL_Renderer*   renderer = NULL;
+int             window_width = 0;
+int             window_height = 0;
+int             block_width = 0;
+int             block_height = 0;
 
 /* GAME FIELD FOR DEBUGING. */
 extern box_t field[GRID_HEIGHT][GRID_WIDTH];
@@ -42,11 +42,11 @@ int main(int argc, char* argv[])
 	/* Aquire the monitor size and set the initial window size. */
 	#define MONITOR_0 0
 	SDL_GetCurrentDisplayMode(MONITOR_0, &display_mode);
-	window_height	= get_window_height(display_mode);
-	window_width		= get_window_width(display_mode);
+	window_height   = get_window_height(display_mode);
+	window_width	    = get_window_width(display_mode);
 
-	block_width		= window_width / 20;
-	block_height		= window_height / 20;
+	block_width     = window_width / 20;
+	block_height    = window_height / 20;
 
 	/* Print screen and window information. */
 	std::cout << "Screen-width: " << display_mode.w << ", Screen-height: " << display_mode.h << std::endl;

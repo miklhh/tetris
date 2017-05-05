@@ -9,7 +9,7 @@
 
 /* Game field. MAKE STATIC IN RELEASE!*/
 //static box_t field[GRID_HEIGHT][GRID_WIDTH];
-	     box_t field[GRID_HEIGHT][GRID_WIDTH];
+         box_t field[GRID_HEIGHT][GRID_WIDTH];
 
 
 int random_int(int n)
@@ -23,9 +23,9 @@ void setup_game()
 	{
 		for (int height = 0; height < GRID_HEIGHT; height++)
 		{
-			field[height][width].tile		= EMPTY;
-			field[height][width].color_f	= COLOR_BACKGROUND_FORTH;
-			field[height][width].color_b	= COLOR_BACKGROUND_BACK;
+			field[height][width].tile       = EMPTY;
+			field[height][width].color_f	    = COLOR_BACKGROUND_FORTH;
+			field[height][width].color_b	    = COLOR_BACKGROUND_BACK;
 		}
 	}
 }
@@ -146,7 +146,7 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 	{
 		for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 		{
-			if (block_copy.structure.tile[y][x] == FILLED	 &&
+			if (block_copy.structure.tile[y][x] == FILLED   &&
 				field[y + block_copy.position.y][x + block_copy.position.x].tile == TAKEN)
 			{
 				collision = COLLISION_BLOCK;
@@ -159,7 +159,7 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 	{
 		for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 		{
-			if (block_copy.structure.tile[y][x] == FILLED		&&
+			if (block_copy.structure.tile[y][x] == FILLED   &&
 				x + block_copy.position.x < 0)
 			{
 				collision = COLLISION_WALL_R;
@@ -173,7 +173,7 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 	{
 		for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 		{
-			if (block_copy.structure.tile[y][x] == FILLED		&&
+			if (block_copy.structure.tile[y][x] == FILLED   &&
 				x + block_copy.position.x > GRID_WIDTH - 1)
 			{
 				collision = COLLISION_WALL_R;
@@ -199,7 +199,7 @@ collision_t test_movable(block_t* block, direction_t direction)
 	{
 		for (int x = 0; x < MAX_BLOCK_HEIGHT; x++)
 		{
-			if (block_copy.structure.tile[y][x] == FILLED		&&
+			if (block_copy.structure.tile[y][x] == FILLED   &&
 				field[y + block_copy.position.y][x + block_copy.position.x].tile == TAKEN)
 			{
 				collision = COLLISION_BLOCK;
@@ -216,7 +216,7 @@ collision_t test_movable(block_t* block, direction_t direction)
 		{
 			for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 			{
-				if (block_copy.structure.tile[y][x] == FILLED		&&
+				if (block_copy.structure.tile[y][x] == FILLED   &&
 					x + block_copy.position.x < 0)
 				{
 					collision = COLLISION_WALL_R;
@@ -232,7 +232,7 @@ collision_t test_movable(block_t* block, direction_t direction)
 		{
 			for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 			{
-				if (block_copy.structure.tile[y][x] == FILLED		&&
+				if (block_copy.structure.tile[y][x] == FILLED   &&
 					x + block_copy.position.x > GRID_WIDTH - 1)
 				{
 					collision = COLLISION_WALL_R;
@@ -248,7 +248,7 @@ collision_t test_movable(block_t* block, direction_t direction)
 		{
 			for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 			{
-				if (block_copy.structure.tile[y][x] == FILLED		&&
+				if (block_copy.structure.tile[y][x] == FILLED   &&
 					y + block_copy.position.y < 0)
 				{
 					collision = COLLISION_WALL_U;
@@ -264,7 +264,7 @@ collision_t test_movable(block_t* block, direction_t direction)
 		{
 			for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
 			{
-				if (block_copy.structure.tile[y][x] == FILLED		&&
+				if (block_copy.structure.tile[y][x] == FILLED   &&
 					y + block_copy.position.y > GRID_HEIGHT - 1)
 				{
 					collision = COLLISION_WALL_D;
