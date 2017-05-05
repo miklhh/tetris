@@ -31,7 +31,6 @@ void draw_box(
 	SDL_Renderer*   renderer,
 	int             margin = 2
 );
-
 void draw_block(block_t block, int tile_x, int tile_y);
 void draw_field(box_t field[GRID_HEIGHT][GRID_WIDTH]);
 

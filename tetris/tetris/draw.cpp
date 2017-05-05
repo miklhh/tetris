@@ -126,8 +126,8 @@ void draw_field(box_t field[GRID_HEIGHT][GRID_WIDTH])
 			draw_box(
 				x * block_width, y * block_height,  // Position.
 				block_width, block_height,          // Size.
-				field[x][y].color_f,	                // Foreground color.
-				field[x][y].color_b,	                // Background color.
+				field[x][y].color_f,                // Foreground color.
+				field[x][y].color_b,                // Background color.
 				renderer,                           // Renderer to draw to.
 				GLOBAL_MARGIN                       // Margin level (px).
 			);
