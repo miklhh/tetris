@@ -6,7 +6,7 @@
 #include <SDL.h>
 
 /* Block margin. */
-#define GLOBAL_MARGIN               1
+#define GLOBAL_MARGIN   1
 
 void draw_box(
 	int             x_px,

@@ -47,14 +47,14 @@ static void SetColor(int color, SDL_Renderer* renderer)
 
 /* Function for drawing a 'block' to a renderer. */
 void draw_box(
-	int             x_px,
-	int             y_px,
-	int             w_px,
-	int             h_px,
-	color_t         color_forth,
-	color_t         color_back,
-	SDL_Renderer*   renderer,
-	int             margin
+    int             x_px,
+    int             y_px,
+    int             w_px,
+    int             h_px,
+    color_t         color_forth,
+    color_t         color_back,
+    SDL_Renderer*   renderer,
+    int             margin
 )
 {
 	/* Create rectangles. */

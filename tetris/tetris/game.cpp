@@ -288,17 +288,14 @@ block_t * block_spawn(block_type_t block_type, int start_x, int start_y, color_t
     /* Decide what to spawn. */
     block_type_t block_to_spawn;
     if (block_type == BLOCK_RANDOM)
-    {
         block_to_spawn = (block_type_t)random_int(BLOCK_RANDOM);
-    }
     else
-    {
         block_to_spawn = block_type;
-    }
+
 
     /* Spawn the block. */
     block_t* block      = new block_t;
-    block->block_type   = block_type;
+    block->block_type   = block_to_spawn;
     switch (block_to_spawn)
     {
     case BLOCK_I:
@@ -345,14 +342,15 @@ block_t * block_spawn(block_type_t block_type, int start_x, int start_y, color_t
     return block;
 }
 
-void draw_current_block()
+/* Function called by main loop. */
+void game_draw_current_block()
 {
     draw_block(current_block, current_block->position.x, current_block->position.y);
 }
 
 /* Draw field draws the entire field to the screen. Make sure to render the tetrigon
 * after the field has be drawn, to not cover up the tetrigon. */
-void draw_field()
+void game_draw_field()
 {
     extern SDL_Renderer* renderer;
     extern int block_width;
@@ -417,6 +415,23 @@ bool iterate_game()
     block_move(current_block, DIRECTION_DOWN);
     //draw_block(current_block, current_block->position.x, current_block->position.y);
     return false;
+}
+
+void current_block_move(direction_t direction)
+{
+    if (test_movable(current_block, direction) == NO_COLLISION)
+    {
+        block_move(current_block, direction);
+    }
+}
+
+void current_block_rotate(bool counter_clockwise)
+{
+    if (test_rotatable(current_block, counter_clockwise) == NO_COLLISION)
+    {
+        block_rotate(current_block, counter_clockwise);
+    }
+    /* Else, test if it is possible to make a wall kick... */
 }
 
 

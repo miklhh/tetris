@@ -3,6 +3,7 @@
 #include "get_window_size.h"
 #include "game.h"
 #include "blocks.h"
+#include "handle_event.h"
 
 #include <SDL.h>
 #include <iostream>
@@ -40,7 +41,7 @@ int main(int argc, char* argv[])
 	srand((unsigned int)time(NULL));
 
 	/* Aquire the monitor size and set the initial window size. */
-	#define MONITOR_0 0
+	#define MONITOR_0   0
 	SDL_GetCurrentDisplayMode(MONITOR_0, &display_mode);
 	window_height   = get_window_height(display_mode);
 	window_width    = get_window_width(display_mode);
@@ -89,24 +90,24 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 
 		/* Iterate the game and draw the field. */
-        iterate_game();
-        draw_field();
-        draw_current_block();
+        static uint64_t i = 0;
+        if (i % 300 == 0)
+        {
+            iterate_game();
+        }
+        i++;
+        game_draw_field();
+        game_draw_current_block();
 		SDL_RenderPresent(renderer);
 
 		while (SDL_PollEvent(&events))
 		{
-			switch (events.type)
-			{
-			case SDL_QUIT:
-				is_running = false;
-				break;
-
-			default:
-				break;
-			}
+            if (events.type == SDL_QUIT)
+                is_running = false;
+            else
+                handle_event(&events);
 		}
-		SDL_Delay(1000);
+		SDL_Delay(2);
 	}
 	
 
