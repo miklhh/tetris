@@ -20,7 +20,7 @@ int random_int(int n)
 {
     n = rand() % n;
     std::cout << "Number: " << n << std::endl;
-	return n;
+    return n;
 }
 
 void setup_game()
@@ -187,7 +187,6 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 			{
 				collision = COLLISION_WALL_R;
 			}
-
 		}
 	}
 	return collision;
@@ -229,7 +228,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_R;
 				}
-
 			}
 		}
 		break;
@@ -245,7 +243,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_R;
 				}
-
 			}
 		}
 		break;
@@ -261,7 +258,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_U;
 				}
-
 			}
 		}
 		break;
@@ -277,7 +273,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_D;
 				}
-
 			}
 		}
 		break;
