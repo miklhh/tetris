@@ -39,7 +39,7 @@ const static block_t block_ref_l = {
 
 const static block_t block_ref_o = {
     COLOR_BLUE,                 // Color.
-    BLOCK_O,                    // Block type.
+    BLOCK_O,                    	// Block type.
     { 0, 0 },                   // Center.
     { { { 1, 1, 0, 0 },         // Block structure.
         { 1, 1, 0, 0 },
