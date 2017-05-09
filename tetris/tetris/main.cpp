@@ -3,7 +3,7 @@
 #include "get_window_size.h"
 #include "game.h"
 #include "blocks.h"
-#include "handle_event.h"
+#include "input.h"
 
 #include <SDL.h>
 #include <iostream>
@@ -107,6 +107,10 @@ int main(int argc, char* argv[])
             else
                 handle_event(&events);
 		}
+
+        keyboard_state_t* keyboard_state = SDL_GetKeyboardState(NULL);
+        handle_keyboard_input(keyboard_state);
+
 		SDL_Delay(2);
 	}
 	
