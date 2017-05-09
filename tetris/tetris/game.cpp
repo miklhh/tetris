@@ -4,30 +4,40 @@
 #include "data_structures.h"
 
 #include <stdlib.h>
+#include <time.h>
 #include <iostream> // FOR DEBUGING; REMOVE LATER!
 
 
 /* Game field. MAKE STATIC IN RELEASE!*/
 //static box_t field[GRID_HEIGHT][GRID_WIDTH];
-         box_t field[GRID_HEIGHT][GRID_WIDTH];
+box_t           field[GRID_HEIGHT][GRID_WIDTH];
+static bool     game_over;
+static block_t* current_block;
+static block_t* next_block; 
 
 
 int random_int(int n)
 {
-	return rand() % n;
+    n = rand() % n;
+    std::cout << "Number: " << n << std::endl;
+    return n;
 }
 
 void setup_game()
 {
+    srand((unsigned int)time(NULL));
 	for (int width = 0; width < GRID_WIDTH; width++)
 	{
 		for (int height = 0; height < GRID_HEIGHT; height++)
 		{
-			field[height][width].tile       = EMPTY;
+			field[height][width].tile           = EMPTY;
 			field[height][width].color_f	    = COLOR_BACKGROUND_FORTH;
 			field[height][width].color_b	    = COLOR_BACKGROUND_BACK;
 		}
 	}
+    game_over       = false;
+    current_block   = block_spawn();
+    next_block      = block_spawn();
 }
 
 void block_move(block_t* block, direction_t direction)
@@ -164,7 +174,6 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 			{
 				collision = COLLISION_WALL_R;
 			}
-
 		}
 	}
 
@@ -178,10 +187,8 @@ collision_t test_rotatable(block_t* block, bool counter_clockwise)
 			{
 				collision = COLLISION_WALL_R;
 			}
-
 		}
 	}
-
 	return collision;
 }
 
@@ -221,7 +228,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_R;
 				}
-
 			}
 		}
 		break;
@@ -237,7 +243,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_R;
 				}
-
 			}
 		}
 		break;
@@ -253,7 +258,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_U;
 				}
-
 			}
 		}
 		break;
@@ -269,7 +273,6 @@ collision_t test_movable(block_t* block, direction_t direction)
 				{
 					collision = COLLISION_WALL_D;
 				}
-
 			}
 		}
 		break;
@@ -278,6 +281,157 @@ collision_t test_movable(block_t* block, direction_t direction)
 		break;
 	}
 	return collision;
+}
+
+block_t * block_spawn(block_type_t block_type, int start_x, int start_y, color_t color)
+{
+    /* Decide what to spawn. */
+    block_type_t block_to_spawn;
+    if (block_type == BLOCK_RANDOM)
+        block_to_spawn = (block_type_t)random_int(BLOCK_RANDOM);
+    else
+        block_to_spawn = block_type;
+
+
+    /* Spawn the block. */
+    block_t* block      = new block_t;
+    block->block_type   = block_to_spawn;
+    switch (block_to_spawn)
+    {
+    case BLOCK_I:
+        block->structure = block_ref_i.structure;
+        break;
+
+    case BLOCK_J:
+        block->structure = block_ref_j.structure;
+        break;
+
+    case BLOCK_L:
+        block->structure = block_ref_l.structure;
+        break;
+
+    case BLOCK_O:
+        block->structure = block_ref_o.structure;
+        break;
+
+    case BLOCK_Z:
+        block->structure = block_ref_z.structure;
+        break;
+
+    case BLOCK_T:
+        block->structure = block_ref_t.structure;
+        break;
+
+    case BLOCK_S:
+        block->structure = block_ref_s.structure;
+        break;
+    }
+
+    /* Set the block position, color and return the block-pointer. */
+    if (color == COLOR_RANDOM)
+    {
+        block->color = random_int(COLOR_RANDOM);
+    }
+    else
+    {
+        block->color = color;
+    }
+    block->position.x = start_x;
+    block->position.y = start_y;
+   
+    return block;
+}
+
+/* Function called by main loop. */
+void game_draw_current_block()
+{
+    draw_block(current_block, current_block->position.x, current_block->position.y);
+}
+
+/* Draw field draws the entire field to the screen. Make sure to render the tetrigon
+* after the field has be drawn, to not cover up the tetrigon. */
+void game_draw_field()
+{
+    extern SDL_Renderer* renderer;
+    extern int block_width;
+    extern int block_height;
+    for (int y = 0; y < GRID_HEIGHT; y++)
+    {
+        for (int x = 0; x < GRID_WIDTH; x++)
+        {
+            draw_box(
+                x * block_width, y * block_height,  // Position.
+                block_width, block_height,          // Size.
+                field[y][x].color_f,                // Foreground color.
+                field[y][x].color_b,                // Background color.
+                renderer,                           // Renderer to draw to.
+                GLOBAL_MARGIN                       // Margin level (px).
+            );
+        }
+    }
+}
+
+/* The function returns a pointer to the newly spawned block. */
+
+/* Function returns true as long as the game is running. */
+bool iterate_game()
+{
+    /* Test if the game already set to game-over. */
+    if (game_over)
+    {
+        return false;
+    }
+
+    /* Test if the game just ended. */
+    //TODO: Implement later. Don't forget to remove (delete) all blocks.
+
+    /* If the block no longer can move downward, add it to the game field, create a new block
+     * and return. */
+    if (test_movable(current_block, DIRECTION_DOWN) != NO_COLLISION)
+    {
+        std::cout << "CRACH" << std::endl;
+        for (int y = 0; y < MAX_BLOCK_HEIGHT; y++)
+        {
+            for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
+            {
+                if (current_block->structure.tile[y][x] == FILLED)
+                {
+                    field[y + current_block->position.y][x + current_block->position.x].tile = FILLED;
+                    field[y + current_block->position.y][x + current_block->position.x].color_b = COLOR_BLOCK_BACKGROUND;
+                    field[y + current_block->position.y][x + current_block->position.x].color_f = current_block->color;
+                }
+            }
+        }
+
+        /* Draw the block one last time, then remove it and setup for a new block and return. */
+        //draw_block(current_block, current_block->position.x, current_block->position.y);
+        delete current_block;
+        current_block   = next_block;
+        next_block      = block_spawn();
+        return false;
+    }
+
+    /* The block hasn't landed. Move it downward a step and continue the game. */
+    block_move(current_block, DIRECTION_DOWN);
+    //draw_block(current_block, current_block->position.x, current_block->position.y);
+    return false;
+}
+
+void current_block_move(direction_t direction)
+{
+    if (test_movable(current_block, direction) == NO_COLLISION)
+    {
+        block_move(current_block, direction);
+    }
+}
+
+void current_block_rotate(bool counter_clockwise)
+{
+    if (test_rotatable(current_block, counter_clockwise) == NO_COLLISION)
+    {
+        block_rotate(current_block, counter_clockwise);
+    }
+    /* Else, test if it is possible to make a wall kick... */
 }
 
 
