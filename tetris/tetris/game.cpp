@@ -25,7 +25,10 @@ int random_int(int n)
 
 void setup_game()
 {
+    /* Set random seed. */
     srand((unsigned int)time(NULL));
+
+    /* Setup a 'fresh' gamefield. */
 	for (int width = 0; width < GRID_WIDTH; width++)
 	{
 		for (int height = 0; height < GRID_HEIGHT; height++)
@@ -35,6 +38,8 @@ void setup_game()
 			field[height][width].color_b	    = COLOR_BACKGROUND_BACK;
 		}
 	}
+
+    /* Set variables. */
     game_over       = false;
     current_block   = block_spawn();
     next_block      = block_spawn();
@@ -379,6 +384,8 @@ bool iterate_game()
     /* Test if the game already set to game-over. */
     if (game_over)
     {
+        delete current_block;
+        delete next_block;
         return false;
     }
 

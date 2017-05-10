@@ -36,7 +36,7 @@
     <ClCompile Include="draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="handle_event.cpp">
+    <ClCompile Include="input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="data_structures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="handle_event.h">
+    <ClInclude Include="input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

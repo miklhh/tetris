@@ -159,7 +159,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="exit_game.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="handle_event.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="get_window_size.cpp" />
   </ItemGroup>
@@ -170,7 +170,7 @@
     <ClInclude Include="exit_game.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="get_window_size.h" />
-    <ClInclude Include="handle_event.h" />
+    <ClInclude Include="input.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SRS-pieces.png" />
