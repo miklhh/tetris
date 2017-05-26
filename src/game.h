@@ -4,7 +4,6 @@
 #include "data_structures.h"
 
 
-
 /* Functions. */
 int             random_int(int n);
 void            setup_game();

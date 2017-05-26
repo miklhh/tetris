@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="super_rotation_system.txt">
+    <Text Include="resources\super_rotation_system.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
@@ -64,7 +64,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="SRS-pieces.png">
+    <Image Include="resources\SRS-pieces.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
