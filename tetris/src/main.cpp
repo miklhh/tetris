@@ -26,20 +26,6 @@ extern box_t field[GRID_HEIGHT][GRID_WIDTH];
 
 int main(int argc, char* argv[])
 {
-	setup_game();
-
-
-
-	/* Intialize SDL. */
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		std::cout << "Failed to initialize SDL... Exiting." << std::endl;
-		exit_game(NULL);
-	}
-
-	/* Initialize random seed. */
-	srand((unsigned int)time(NULL));
-
 	/* Aquire the monitor size and set the initial window size. */
 	#define MONITOR_0   0
 	SDL_GetCurrentDisplayMode(MONITOR_0, &display_mode);
@@ -49,10 +35,12 @@ int main(int argc, char* argv[])
 	block_width     = window_width / 20;
 	block_height    = window_height / 20;
 
-	/* Print screen and window information. */
-	std::cout << "Screen-width: "   << display_mode.w   << ", Screen-height: "  << display_mode.h   << std::endl;
-	std::cout << "Window-width: "   << window_width     << ", Window-height: "  << window_height    << std::endl;
-	std::cout << "Block-width: "    << block_width      << ", Block-height: "   << block_height     << std::endl;
+	/* Intialize SDL. */
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		std::cout << "Failed to initialize SDL... Exiting." << std::endl;
+		exit_game(NULL);
+	}
 
 	/* Initialize the window. */
 	window = SDL_CreateWindow(
@@ -81,6 +69,17 @@ int main(int argc, char* argv[])
 		std::cout << "Failed to create a renderer... Exiting." << std::endl;
 		exit_game(window);
 	}
+
+
+
+	/* Initialize random seed, and setup the game. */
+	srand((unsigned int)time(NULL));
+	setup_game();
+
+	/* Print screen and window information. */
+	std::cout << "Screen-width: "   << display_mode.w   << ", Screen-height: "  << display_mode.h   << std::endl;
+	std::cout << "Window-width: "   << window_width     << ", Window-height: "  << window_height    << std::endl;
+	std::cout << "Block-width: "    << block_width      << ", Block-height: "   << block_height     << std::endl;
 
 	bool is_running = true;
 	while (is_running)
