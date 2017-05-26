@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
                 handle_event(&events);
 		}
 
-        keyboard_state_t* keyboard_state = SDL_GetKeyboardState(NULL);
+        static keyboard_state_t* keyboard_state = SDL_GetKeyboardState(NULL);
         handle_keyboard_input(keyboard_state);
 
 		SDL_Delay(2);
