@@ -31,12 +31,12 @@ static bool keyboard_key_timer(SDL_Scancode scancode, keyboard_state_t* keyboard
 {
     using namespace std::chrono;
 
-    static SDL_Scancode last_scancode;
-    static bool         first_time_key_repeat   = false;
-    static bool         last_scancode_released  = false;
-    static auto		    last_call_timestamp     = high_resolution_clock::now();
-    auto                this_call_timestamp     = high_resolution_clock::now();
-    milliseconds        time_since_last_call    = duration_cast<milliseconds>(this_call_timestamp - last_call_timestamp);
+    static SDL_Scancode     last_scancode;
+    static bool             first_time_key_repeat   = false;
+    static bool             last_scancode_released  = false;
+    static auto		        last_call_timestamp     = high_resolution_clock::now();
+    auto                    this_call_timestamp     = high_resolution_clock::now();
+    milliseconds            time_since_last_call    = duration_cast<milliseconds>(this_call_timestamp - last_call_timestamp);
 
 
     /* Test if 'this' key (scancode) is pressed, otherwise always return false. */

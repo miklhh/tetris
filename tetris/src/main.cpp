@@ -26,21 +26,20 @@ extern box_t field[GRID_HEIGHT][GRID_WIDTH];
 
 int main(int argc, char* argv[])
 {
-	/* Aquire the monitor size and set the initial window size. */
-	#define MONITOR_0   0
+    /* Intialize SDL. */
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    {
+        std::cout << "Failed to initialize SDL... Exiting." << std::endl;
+        exit_game(NULL);
+    }
+
+	/* Aquire the monitor size and set the window size variables. */
+	#define MONITOR_0 0
 	SDL_GetCurrentDisplayMode(MONITOR_0, &display_mode);
 	window_height   = get_window_height(display_mode);
 	window_width    = get_window_width(display_mode);
-
 	block_width     = window_width / 20;
 	block_height    = window_height / 20;
-
-	/* Intialize SDL. */
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		std::cout << "Failed to initialize SDL... Exiting." << std::endl;
-		exit_game(NULL);
-	}
 
 	/* Initialize the window. */
 	window = SDL_CreateWindow(
