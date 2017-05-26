@@ -8,3 +8,5 @@ https://www.libsdl.org/
 https://www.visualstudio.com/
 ```
 
+## Authors
+* **Mikael Henriksson** - *Code and graphics* [https://github.com/miklhh](https://github.com/miklhh)
