@@ -3,7 +3,7 @@
 # ------------------- #
 
 CC       = g++
-CFLAGS   = -O2 -Wall -Wextra 
+CFLAGS   = -O2 -Wall -Wextra -std=c++11
 SOURCES  = src/draw.cpp src/exit_game.cpp src/game.cpp src/get_window_size.cpp \
            src/input.cpp src/main.cpp
 
