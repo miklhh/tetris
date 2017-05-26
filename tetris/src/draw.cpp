@@ -1,6 +1,5 @@
 #include "draw.h"
 #include "blocks.h"
-#include <iostream>	// FOR DEBUGING, REMOVE ON RELEASE!
 
 /* Local help function for seting color. */
 static void SetColor(int color, SDL_Renderer* renderer)

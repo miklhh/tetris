@@ -2,7 +2,8 @@
 
 #include <SDL.h>
 
-#define SCALE_FACTOR 5
+
+#define SCALE_FACTOR    5
 
 int get_window_height(SDL_DisplayMode display_mode)
 {
