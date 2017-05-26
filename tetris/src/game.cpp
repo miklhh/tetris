@@ -15,7 +15,7 @@ static bool     game_over;
 static block_t* current_block;
 static block_t* next_block; 
 
-
+/* Random number generator. */
 int random_int(int n)
 {
     n = rand() % n;
@@ -33,9 +33,9 @@ void setup_game()
 	{
 		for (int height = 0; height < GRID_HEIGHT; height++)
 		{
-			field[height][width].tile           = EMPTY;
-			field[height][width].color_f	    = COLOR_BACKGROUND_FORTH;
-			field[height][width].color_b	    = COLOR_BACKGROUND_BACK;
+			field[height][width].tile       = EMPTY;
+			field[height][width].color_f    = COLOR_BACKGROUND_FORTH;
+			field[height][width].color_b    = COLOR_BACKGROUND_BACK;
 		}
 	}
 
@@ -45,6 +45,7 @@ void setup_game()
     next_block      = block_spawn();
 }
 
+/* Move a block. */
 void block_move(block_t* block, direction_t direction)
 {
 	switch (direction)
@@ -102,6 +103,7 @@ static void rotate_block_matrix(block_t* block, bool counter_clockwise, int matr
 	block->structure = rotated_block_structure;
 }
 
+/* Rotate a block. */
 void block_rotate(block_t* block, bool counter_clockwise)
 {
 	/* Switch statement for all the blocks. */
@@ -146,6 +148,7 @@ void block_rotate(block_t* block, bool counter_clockwise)
 	}
 }
 
+/* Test if a block is rotatable. */
 collision_t test_rotatable(block_t* block, bool counter_clockwise)
 {
 	/* Make a copy of the block and rotate the copy. */
@@ -288,7 +291,8 @@ collision_t test_movable(block_t* block, direction_t direction)
 	return collision;
 }
 
-block_t * block_spawn(block_type_t block_type, int start_x, int start_y, color_t color)
+/* Spawn a block. */
+block_t* block_spawn(block_type_t block_type, int start_x, int start_y, color_t color)
 {
     /* Decide what to spawn. */
     block_type_t block_to_spawn;
@@ -354,7 +358,7 @@ void game_draw_current_block()
 }
 
 /* Draw field draws the entire field to the screen. Make sure to render the tetrigon
-* after the field has be drawn, to not cover up the tetrigon. */
+ * after the field has be drawn, to not cover up the tetrigon. */
 void game_draw_field()
 {
     extern SDL_Renderer* renderer;
@@ -375,8 +379,6 @@ void game_draw_field()
         }
     }
 }
-
-/* The function returns a pointer to the newly spawned block. */
 
 /* Function returns true as long as the game is running. */
 bool iterate_game()
@@ -424,6 +426,7 @@ bool iterate_game()
     return false;
 }
 
+/* Move the current block on the field. */
 void current_block_move(direction_t direction)
 {
     if (test_movable(current_block, direction) == NO_COLLISION)
@@ -432,6 +435,7 @@ void current_block_move(direction_t direction)
     }
 }
 
+/* Rotate the currentn block on the field. */
 void current_block_rotate(bool counter_clockwise)
 {
     if (test_rotatable(current_block, counter_clockwise) == NO_COLLISION)

@@ -5,7 +5,7 @@
 #include "blocks.h"
 #include "input.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <ctime>
 #include <cstdlib>

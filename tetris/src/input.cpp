@@ -1,16 +1,14 @@
 #include "input.h"
 #include "game.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <chrono>
 
 #define FIRST_REPEAT_WAIT_TIME  400
 #define REPEAT_WAIT_TIME        50
 
-using namespace std::chrono;
-
-
+/* Handle application events. */
 void handle_event(SDL_Event* evnt)
 {
     switch (evnt->type)
@@ -31,6 +29,8 @@ void handle_event(SDL_Event* evnt)
  * shouldn't be processed each iteration of the game. Instead it should wait a couple of milliseconds. */
 static bool keyboard_key_timer(SDL_Scancode scancode, keyboard_state_t* keyboard_state)
 {
+    using namespace std::chrono;
+
     static SDL_Scancode             last_scancode;
     static bool                     first_time_key_repeat   = false;
     static bool                     last_scancode_released  = false;

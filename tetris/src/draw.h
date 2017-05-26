@@ -3,7 +3,7 @@
 
 #include "game.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 /* Block margin. */
 #define GLOBAL_MARGIN   1

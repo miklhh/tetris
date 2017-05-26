@@ -1,6 +1,6 @@
 #include "get_window_size.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 
 #define SCALE_FACTOR    5
