@@ -5,15 +5,18 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <chrono>
 #include <iostream> // FOR DEBUGING; REMOVE LATER!
 
 
-/* Game field. MAKE STATIC IN RELEASE!*/
-//static box_t field[GRID_HEIGHT][GRID_WIDTH];
-box_t           field[GRID_HEIGHT][GRID_WIDTH];
-static bool     game_over;
-static block_t* current_block;
-static block_t* next_block; 
+/* Variables for the game. */
+static box_t     field[GRID_HEIGHT][GRID_WIDTH];
+static bool      game_over;
+static block_t*  current_block;
+static block_t*  next_block;
+static int       current_iteration_wait_time_ms;
+static int       iteration_wait_time_level_ms;
+
 
 /* Random number generator. */
 int random_int(int n)
@@ -43,6 +46,8 @@ void setup_game()
     game_over       = false;
     current_block   = block_spawn();
     next_block      = block_spawn();
+    set_iteration_timer(800);
+
 }
 
 /* Move a block. */
@@ -424,6 +429,43 @@ bool iterate_game()
     block_move(current_block, DIRECTION_DOWN);
     //draw_block(current_block, current_block->position.x, current_block->position.y);
     return false;
+}
+
+/* Timer for testing if a iteration shall occur. */
+bool iteration_timer()
+{
+    using namespace std::chrono;
+    static time_point<high_resolution_clock>  last_timestamp;
+    time_point<high_resolution_clock>         current_timestamp       = high_resolution_clock::now();
+    milliseconds                              time_since_last_call    = duration_cast<milliseconds>(current_timestamp - last_timestamp);
+
+    if (current_iteration_wait_time_ms < time_since_last_call.count())
+    {
+        last_timestamp = current_timestamp;
+        return true;
+    }
+    else return false;
+
+}
+
+/* Function to set the interation timer. */
+void set_temp_iteration_timer(int time_ms)
+{
+    current_iteration_wait_time_ms = time_ms;
+}
+
+/* Function for seting the iteration timer back to normal speed. */
+void set_iteration_timer(int time_ms)
+{
+    if (time_ms == 0)
+    {
+        current_iteration_wait_time_ms = iteration_wait_time_level_ms;
+    }
+    else
+    {
+        iteration_wait_time_level_ms = time_ms;
+        current_iteration_wait_time_ms = time_ms;
+    }
 }
 
 /* Move the current block on the field. */

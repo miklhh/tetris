@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 typedef const Uint8 keyboard_state_t;
 

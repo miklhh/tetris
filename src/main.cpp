@@ -5,11 +5,13 @@
 #include "blocks.h"
 #include "input.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
 
+/* For testing timings. */
+#include <chrono>
 
 /* Windows, renderer and window variables. */
 SDL_DisplayMode display_mode;
@@ -80,20 +82,30 @@ int main(int argc, char* argv[])
 	std::cout << "Window-width: "   << window_width     << ", Window-height: "  << window_height    << std::endl;
 	std::cout << "Block-width: "    << block_width      << ", Block-height: "   << block_height     << std::endl;
 
+	/* DEBUGING TIMINGS, REMOVE LATER ON. */
+	using namespace std::chrono;
+	time_point<high_resolution_clock> t1;
+	time_point<high_resolution_clock> t2;
+	/* DEBUGING TIMINGS, REMOVE LATER ON. */
+
 	bool is_running = true;
 	while (is_running)
 	{
+		/* DEBUGING TIMINGS, REMOVE LATER ON. */
+		t1 = high_resolution_clock::now();
+		/* DEBUGING TIMINGS, REMOVE LATER ON. */
+
 		/* Clear the screen. */
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
 
-		/* Iterate the game and draw the field. */
-        static uint64_t i = 0;
-        if (i % 300 == 0)
-        {
+		/* Replace with real timer instead. */
+		if (iteration_timer())
+		{ 
             iterate_game();
-        }
-        i++;
+		}
+
+
         game_draw_field();
         game_draw_current_block();
 		SDL_RenderPresent(renderer);
@@ -109,7 +121,13 @@ int main(int argc, char* argv[])
         static keyboard_state_t* keyboard_state = SDL_GetKeyboardState(NULL);
         handle_keyboard_input(keyboard_state);
 
-		SDL_Delay(2);
+		/* DEBUGING TIMINGS, REMOVE LATER ON. */
+		t2 = high_resolution_clock::now();
+		std::cout << "Iteration time: " << duration_cast<microseconds>(t2 - t1).count() << " microseconds." << std::endl;
+		/* DEBUGING TIMINGS, REMOVE LATER ON. */
+
+		/* Later we want a total time of 10 milliseconds per iteration. Game updates 100 times a seconds.*/
+		SDL_Delay(10);
 	}
 	
 

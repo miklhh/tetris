@@ -1,7 +1,7 @@
 #include "input.h"
 #include "game.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <chrono>
 
@@ -14,9 +14,27 @@ void handle_event(SDL_Event* evnt)
     switch (evnt->type)
     {
     case SDL_KEYDOWN:
+        switch (evnt->key.keysym.sym)
+        {
+        case SDLK_DOWN:
+            set_temp_iteration_timer(70);
+            break;
+
+        default:
+            break;
+        }
         break;
 
     case SDL_KEYUP:
+        switch (evnt->key.keysym.sym)
+        {
+        case SDLK_DOWN:
+            set_iteration_timer(CURRENT_LEVEL_TIME_MS);
+            break;
+
+        default:
+            break;
+        }
         break;
 
     default:
