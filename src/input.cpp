@@ -11,13 +11,32 @@
 /* Handle application events. */
 void handle_event(SDL_Event* evnt)
 {
+    static bool rotate_clockwise_released          = true;
+    static bool rotate_counter_clockwise_released  = true;
+
     switch (evnt->type)
     {
     case SDL_KEYDOWN:
         switch (evnt->key.keysym.sym)
         {
-        case SDLK_DOWN:
-            set_temp_iteration_timer(70);
+        case KEY_SOFT_DROP:
+            set_temp_iteration_timer(50);
+            break;
+
+        case KEY_ROTATE_COUNTER_CLOCKWISE:
+            if (rotate_counter_clockwise_released)
+            {
+                rotate_counter_clockwise_released = false;
+                current_block_rotate(COUNTER_CLOCKWISE);
+            }
+            break;
+
+        case KEY_ROTATE_CLOCKWISE:
+            if (rotate_clockwise_released)
+            {
+                rotate_clockwise_released = false;
+                current_block_rotate(CLOCKWISE);
+            }
             break;
 
         default:
@@ -28,8 +47,16 @@ void handle_event(SDL_Event* evnt)
     case SDL_KEYUP:
         switch (evnt->key.keysym.sym)
         {
-        case SDLK_DOWN:
+        case KEY_SOFT_DROP:
             set_iteration_timer(CURRENT_LEVEL_TIME_MS);
+            break;
+
+        case KEY_ROTATE_COUNTER_CLOCKWISE:
+            rotate_counter_clockwise_released = true;
+            break;
+
+        case KEY_ROTATE_CLOCKWISE:
+            rotate_clockwise_released = true;
             break;
 
         default:

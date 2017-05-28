@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cout << "Failed to initialize SDL... Exiting." << std::endl;
-        exit_game(NULL);
+        exit_game(NULL, NULL);
     }
 
 	/* Aquire the monitor size and set the window size variables. */
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 	if (window == NULL)
 	{
 		std::cout << "Failed to create a window... Exiting." << std::endl;
-		exit_game(window);
+		exit_game(NULL, NULL);
 	}
 
 	/* Intialize the renderer. */
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 	if (renderer == NULL)
 	{
 		std::cout << "Failed to create a renderer... Exiting." << std::endl;
-		exit_game(window);
+		exit_game(window, NULL);
 	}
 
 
@@ -131,6 +131,6 @@ int main(int argc, char* argv[])
 	}
 	
 
-	exit_game(window);
+	exit_game(window, renderer);
     return 0;
 }

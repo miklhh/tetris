@@ -43,9 +43,9 @@ void setup_game()
 	}
 
     /* Set variables. */
-    game_over       = false;
-    current_block   = block_spawn();
-    next_block      = block_spawn();
+    game_over     = false;
+    current_block = block_spawn();
+    next_block    = block_spawn();
     set_iteration_timer(800);
 
 }
@@ -80,7 +80,16 @@ void block_move(block_t* block, direction_t direction)
 /* Help function to do matrix rotation of a block. */
 static void rotate_block_matrix(block_t* block, bool counter_clockwise, int matrix_size)
 {
-	block_struct_t rotated_block_structure;
+    /* Create a new block structure and initialize it to EMPTY. */
+    block_struct_t rotated_block_structure;
+    for (int y = 0; y < MAX_BLOCK_HEIGHT; y++)
+    {
+        for (int x = 0; x < MAX_BLOCK_WIDTH; x++)
+        {
+            rotated_block_structure.tile[y][x] = EMPTY;
+        }
+    }
+	
 	if (counter_clockwise) 
 	{
 		/* Counter closewise rotation. */
@@ -109,7 +118,7 @@ static void rotate_block_matrix(block_t* block, bool counter_clockwise, int matr
 }
 
 /* Rotate a block. */
-void block_rotate(block_t* block, bool counter_clockwise)
+void block_rotate(block_t* block, rotation_t counter_clockwise)
 {
 	/* Switch statement for all the blocks. */
 	switch (block->block_type)
@@ -154,7 +163,7 @@ void block_rotate(block_t* block, bool counter_clockwise)
 }
 
 /* Test if a block is rotatable. */
-collision_t test_rotatable(block_t* block, bool counter_clockwise)
+collision_t test_rotatable(block_t* block, rotation_t counter_clockwise)
 {
 	/* Make a copy of the block and rotate the copy. */
 	block_t block_copy = *block;
@@ -478,7 +487,7 @@ void current_block_move(direction_t direction)
 }
 
 /* Rotate the currentn block on the field. */
-void current_block_rotate(bool counter_clockwise)
+void current_block_rotate(rotation_t counter_clockwise)
 {
     if (test_rotatable(current_block, counter_clockwise) == NO_COLLISION)
     {

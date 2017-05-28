@@ -5,7 +5,7 @@
 #define MAX_BLOCK_WIDTH	            4
 #define MAX_BLOCK_HEIGHT            4
 
-/* Block marcros.*/
+/* Block type..types.*/
 typedef int block_type_t; 
 #define BLOCK_I                     0
 #define BLOCK_J                     1
@@ -25,7 +25,7 @@ typedef int block_type_t;
 #define FILLED                      1
 #define TAKEN                       1
 
-/* Collision macros and typedef. */
+/* Collision types. */
 typedef int collision_t;
 #define NO_COLLISION                0
 #define COLLISION_WALL_L            1
@@ -34,14 +34,14 @@ typedef int collision_t;
 #define COLLISION_WALL_D            4
 #define COLLISION_BLOCK             5
 
-/* Direction macros and typedef. */
+/* Direction types. */
 typedef int direction_t;
 #define	DIRECTION_LEFT              0
 #define DIRECTION_RIGHT             1
 #define DIRECTION_UP                2
 #define DIRECTION_DOWN              3
 
-/* Color macros and typedef. */
+/* Color types. */
 typedef int color_t;
 #define COLOR_BLUE                  0
 #define COLOR_RED                   1
@@ -55,16 +55,22 @@ typedef int color_t;
 #define COLOR_BACKGROUND_BACK       COLOR_GREY
 #define COLOR_BACKGROUND_FORTH      COLOR_DARK_GREY
 #define COLOR_BLOCK_BACKGROUND      COLOR_TRANS_WHITE
-typedef int color_t;
+
+/* Rotation types. */
+typedef bool rotation_t;
+#define CLOCKWISE                   false
+#define COUNTER_CLOCKWISE           true
+
+/* Tile type. */
 typedef int tile_t;
 
-/* Data structures. */
+/* Other data structures... */
 struct position_t;
 struct block_struct_t;
 struct block_t;
 struct box_t;
 
-/* And their definitions. */
+/* ... and their definitions. */
 struct position_t
 {
 	int x;
@@ -74,8 +80,7 @@ struct position_t
 /* Structure for a block-structure. */
 struct block_struct_t
 {
-               /*       Y                X      */
-    tile_t tile[MAX_BLOCK_HEIGHT][MAX_BLOCK_WIDTH];
+    tile_t tile[MAX_BLOCK_HEIGHT][MAX_BLOCK_WIDTH];     // [Y] [X]
 };
 
 /* Structure for a block. */

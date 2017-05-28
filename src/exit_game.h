@@ -3,6 +3,6 @@
 
 #include <SDL.h>
 
-void exit_game(SDL_Window* window);
+void exit_game(SDL_Window* window, SDL_Renderer* renderer);
 
 #endif

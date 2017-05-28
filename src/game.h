@@ -3,9 +3,9 @@
 
 #include "data_structures.h"
 
+#define CURRENT_LEVEL_TIME_MS   0
 
 /* Setup/set fucntions. */
-#define CURRENT_LEVEL_TIME_MS   0
 int     random_int(int n);
 void    setup_game();
 void    set_temp_iteration_timer(int time_ms);
@@ -20,11 +20,11 @@ block_t*    block_spawn(block_type_t block_type = BLOCK_RANDOM, int start_x = 4,
 
 /* Block functions*/
 void            block_move(block_t* block, direction_t direction);
-void            block_rotate(block_t* block, bool counter_clockwise);
-collision_t     test_rotatable(block_t* block, bool counter_clockwise);
+void            block_rotate(block_t* block, rotation_t counter_clockwise);
+collision_t     test_rotatable(block_t* block, rotation_t counter_clockwise);
 collision_t     test_movable(block_t* block, direction_t left);
 void            current_block_move(direction_t direction);
-void            current_block_rotate(bool counter_clockwise);
+void            current_block_rotate(rotation_t counter_clockwise);
 
 
 
