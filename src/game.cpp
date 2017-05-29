@@ -365,6 +365,46 @@ block_t* block_spawn(block_type_t block_type, int start_x, int start_y, color_t 
     return block;
 }
 
+/* Removes an entire row. */
+void remove_row(int row)
+{
+    for (int x = 0; x < GRID_WIDTH; x++)
+    {
+        field[row][x].tile     = EMPTY;
+        field[row][x].color_f  = COLOR_BACKGROUND_FORTH;
+        field[row][x].color_b  = COLOR_BACKGROUND_BACK;
+    }
+}
+
+/* Move the entire field down n levels starting from row.. */
+void move_field_down(int row, int n)
+{
+    for (int y = row - 1; y >= 0; y--)
+    {
+        for (int x = 0; x < GRID_WIDTH; x++)
+        {
+            field[y + n][x].tile = field[y][x].tile;
+            field[y + n][x].color_f = field[y][x].color_f;
+            field[y + n][x].color_b = field[y][x].color_b;
+        }
+    }
+}
+
+/* Function for testing if an entire row has been filled up. */
+bool test_row_full(int row)
+{
+    bool res = true;
+    for (int x = 0; x < GRID_WIDTH; x++)
+    {
+        if (field[row][x].tile == EMPTY)
+        {
+            res = false;
+            break;
+        }
+    }
+    return res;
+}
+
 /* Function called by main loop. */
 void game_draw_current_block()
 {
@@ -408,8 +448,7 @@ bool iterate_game()
     /* Test if the game just ended. */
     //TODO: Implement later. Don't forget to remove (delete) all blocks.
 
-    /* If the block no longer can move downward, add it to the game field, create a new block
-     * and return. */
+    /* If the block hits the ground. */
     if (test_movable(current_block, DIRECTION_DOWN) != NO_COLLISION)
     {
         std::cout << "CRACH" << std::endl;
@@ -426,8 +465,45 @@ bool iterate_game()
             }
         }
 
-        /* Draw the block one last time, then remove it and setup for a new block and return. */
-        //draw_block(current_block, current_block->position.x, current_block->position.y);
+        /* Test and remove posible full rows */
+        for (int y1 = 0; y1 < GRID_HEIGHT; y1++)
+        {
+            /* Test if the row 'y1' is full. If it is, test how many row under 'y1'
+            * which also is full. */
+            if (test_row_full(y1))
+            {
+                int   row = y1;
+                int   n = 1;
+                bool  one_found = false;
+                for (int y2 = y1; y2 < GRID_HEIGHT; y2++)
+                {
+                    bool row_full = test_row_full(y2);
+                    if (row_full)
+                    {
+                        n = y2 - y1 + 1;
+                        one_found = true;
+                    }
+                    if (one_found && !row_full)
+                        break;
+                }
+
+                /* The appropriate rows to remove and the amount of rows under it
+                * has been found. Remove accordingly and move field down. */
+                for (int y = y1; y < y1 + n; y++)
+                {
+                    remove_row(y);
+                }
+
+                /* Move down the pieces above it. */
+                move_field_down(y1, n);
+
+                /* All removings and moves has been completed, break out of outher
+                * loop. */
+                break;
+            }
+        }
+
+        /* Remove the old block and prepare a new one. */
         delete current_block;
         current_block   = next_block;
         next_block      = block_spawn();
@@ -440,7 +516,7 @@ bool iterate_game()
     return false;
 }
 
-/* Timer for testing if a iteration shall occur. */
+/* Timer for testing if an iteration shall occur. */
 bool iteration_timer()
 {
     using namespace std::chrono;

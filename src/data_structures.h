@@ -41,17 +41,18 @@ typedef int direction_t;
 #define DIRECTION_UP                2
 #define DIRECTION_DOWN              3
 
-/* Color types. */
+/* Color types. COLOR_RANDOM can take any form of the 
+ * colors whoms number is lower than COLOR_RANDOM. */
 typedef int color_t;
 #define COLOR_BLUE                  0
 #define COLOR_RED                   1
 #define COLOR_GREEN                 2
-#define COLOR_WHITE                 3
-#define COLOR_BLACK                 4
-#define COLOR_GREY                  5
-#define COLOR_DARK_GREY             6
-#define COLOR_TRANS_WHITE           7
-#define COLOR_RANDOM                8
+#define COLOR_RANDOM                3
+#define COLOR_WHITE                 4
+#define COLOR_BLACK                 5
+#define COLOR_GREY                  6
+#define COLOR_DARK_GREY             7
+#define COLOR_TRANS_WHITE           8
 #define COLOR_BACKGROUND_BACK       COLOR_GREY
 #define COLOR_BACKGROUND_FORTH      COLOR_DARK_GREY
 #define COLOR_BLOCK_BACKGROUND      COLOR_TRANS_WHITE
