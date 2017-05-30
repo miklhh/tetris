@@ -1,3 +1,2 @@
-1. Add wall kicking.
-2. Add real timecheking in main-loop.
-3. 
+1. Add real timecheking in main-loop.
+2. 

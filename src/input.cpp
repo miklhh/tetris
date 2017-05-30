@@ -5,7 +5,7 @@
 #include <iostream>
 #include <chrono>
 
-#define FIRST_REPEAT_WAIT_TIME  400
+#define FIRST_REPEAT_WAIT_TIME  150
 #define REPEAT_WAIT_TIME        50
 
 /* Handle application events. */

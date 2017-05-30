@@ -36,9 +36,9 @@ void setup_game()
 	{
 		for (int height = 0; height < GRID_HEIGHT; height++)
 		{
-			field[height][width].tile       = EMPTY;
-			field[height][width].color_f    = COLOR_BACKGROUND_FORTH;
-			field[height][width].color_b    = COLOR_BACKGROUND_BACK;
+			field[height][width].tile      = EMPTY;
+			field[height][width].color_f   = COLOR_BACKGROUND_FORTH;
+			field[height][width].color_b   = COLOR_BACKGROUND_BACK;
 		}
 	}
 
@@ -47,7 +47,6 @@ void setup_game()
     current_block = block_spawn();
     next_block    = block_spawn();
     set_iteration_timer(800);
-
 }
 
 /* Move a block. */
@@ -163,7 +162,7 @@ void block_rotate(block_t* block, rotation_t counter_clockwise)
 }
 
 /* Test if a block is rotatable. */
-collision_t test_rotatable(block_t* block, rotation_t counter_clockwise)
+collision_t test_rotation(block_t* block, rotation_t counter_clockwise)
 {
 	/* Make a copy of the block and rotate the copy. */
 	block_t block_copy = *block;
@@ -494,11 +493,8 @@ bool iterate_game()
                     remove_row(y);
                 }
 
-                /* Move down the pieces above it. */
+                /* Move down the pieces above it and break out of loop. */
                 move_field_down(y1, n);
-
-                /* All removings and moves has been completed, break out of outher
-                * loop. */
                 break;
             }
         }
@@ -512,7 +508,6 @@ bool iterate_game()
 
     /* The block hasn't landed. Move it downward a step and continue the game. */
     block_move(current_block, DIRECTION_DOWN);
-    //draw_block(current_block, current_block->position.x, current_block->position.y);
     return false;
 }
 
@@ -521,8 +516,8 @@ bool iteration_timer()
 {
     using namespace std::chrono;
     static time_point<high_resolution_clock>  last_timestamp;
-    time_point<high_resolution_clock>         current_timestamp       = high_resolution_clock::now();
-    milliseconds                              time_since_last_call    = duration_cast<milliseconds>(current_timestamp - last_timestamp);
+    time_point<high_resolution_clock>         current_timestamp         = high_resolution_clock::now();
+    milliseconds                              time_since_last_call      = duration_cast<milliseconds>(current_timestamp - last_timestamp);
 
     if (current_iteration_wait_time_ms < time_since_last_call.count())
     {
@@ -565,11 +560,70 @@ void current_block_move(direction_t direction)
 /* Rotate the currentn block on the field. */
 void current_block_rotate(rotation_t counter_clockwise)
 {
-    if (test_rotatable(current_block, counter_clockwise) == NO_COLLISION)
+    /* Test if the current block can rotate. */
+    if (test_rotation(current_block, counter_clockwise) == NO_COLLISION)
     {
         block_rotate(current_block, counter_clockwise);
+        return;
     }
-    /* Else, test if it is possible to make a wall kick... */
+
+    /* Test if a left wall kick can be preformed. */
+    block_t temp_block = *current_block;
+    block_move(&temp_block, DIRECTION_RIGHT);
+    if (test_rotation(&temp_block, counter_clockwise) == NO_COLLISION)
+    {
+        block_move(current_block, DIRECTION_RIGHT);
+        block_rotate(current_block, counter_clockwise);
+        return;
+    }
+
+    /* Test if a right side wall kick can be preformed. */
+    temp_block = *current_block;
+    block_move(&temp_block, DIRECTION_LEFT);
+    if (test_rotation(&temp_block, counter_clockwise) == NO_COLLISION)
+    {
+        block_move(current_block, DIRECTION_LEFT);
+        block_rotate(current_block, counter_clockwise);
+        return;
+    }
+
+    //   ------------------------------------------------------------
+    //   -------------        SPECTIAL BLOCKS       -----------------
+    //   ------------------------------------------------------------
+
+    /* 1x4 block, also known as I-block. */
+    if (current_block->block_type == BLOCK_I)
+    {
+        /* Test a left side double wall kick. */
+        temp_block = *current_block;
+        for (int i = 0; i < 2; i++)
+            block_move(&temp_block, DIRECTION_RIGHT);
+
+        if (test_rotation(&temp_block, counter_clockwise)  == NO_COLLISION)
+        {
+            for (int i = 0; i < 2; i++)
+                block_move(current_block, DIRECTION_RIGHT);
+
+            block_rotate(current_block, counter_clockwise);
+            return;
+        }
+
+
+
+        /* Test a right side double wall kick. */
+        temp_block = *current_block;
+        for (int i = 0; i < 2; i++)
+            block_move(&temp_block, DIRECTION_LEFT);
+
+        if (test_rotation(&temp_block, counter_clockwise) == NO_COLLISION)
+        {
+            for (int i = 0; i < 2; i++)
+                block_move(current_block, DIRECTION_LEFT);
+
+            block_rotate(current_block, counter_clockwise);
+            return;
+        }
+    }
 }
 
 

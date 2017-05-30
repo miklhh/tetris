@@ -23,11 +23,12 @@ bool      test_row_full(int row);
 /* Drawing funcitons. */
 void  game_draw_current_block();
 void  game_draw_field();
+void  draw_next_block();
 
 /* Block functions*/
 void         block_move(block_t* block, direction_t direction);
 void         block_rotate(block_t* block, rotation_t counter_clockwise);
-collision_t  test_rotatable(block_t* block, rotation_t counter_clockwise);
+collision_t  test_rotation(block_t* block, rotation_t counter_clockwise);
 collision_t  test_movable(block_t* block, direction_t left);
 void         current_block_move(direction_t direction);
 void         current_block_rotate(rotation_t counter_clockwise);
