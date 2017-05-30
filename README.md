@@ -9,11 +9,11 @@ This application is written with and requires SDL2. For Windows builders, Visual
 
 
 ### Build
-** *LINUX* **
+***LINUX***
+Placeholder..
 
-
-** *WINDOWS* **
-
+***WINDOWS***
+Placeholder..
 
 ## Authors
 * **Mikael Henriksson** - *Code and multimedia* - [https://github.com/miklhh](https://github.com/miklhh)
