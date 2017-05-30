@@ -9,9 +9,9 @@ This application is written with and requires SDL2. For Windows builders, Visual
 
 
 ### Build
-***LINUX*** users build the application by running *make* from the command line. On running the make-script a new directory *build* will be created and the output file *tetris* can be found and run from the folder. 
+**LINUX** users build the application by running *make* from the command line. On running the make-script a new directory *build* will be created and the output file *tetris* can be found and run from the folder. 
 
-***WINDOWS***
+**WINDOWS**
 Placeholder..
 
 ## Authors
