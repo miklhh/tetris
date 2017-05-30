@@ -8,9 +8,9 @@ This application is written with and requires SDL2. For more informaion visit th
 * [Microsoft Visual Studio 2017](https://www.visualstudio.com/) - Development tool for Windows users.
 
 #### Build
-**LINUX**
+** LINUX **
 ---
-**WINDOWS**
+** WINDOWS **
 
 
 ## Authors
