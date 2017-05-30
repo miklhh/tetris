@@ -7,10 +7,11 @@ This application is written with and requires SDL2. For Windows builders, Visual
 * [SDL - Simple Directmedia Layer](https://www.libsdl.org/) - Multimedia library used.
 * [Microsoft Visual Studio 2017](https://www.visualstudio.com/) - Development tool for Windows users.
 
-#### Build
-***LINUX***
+
+### Build
+**LINUX**
 ---
-***WINDOWS***
+**WINDOWS**
 
 
 ## Authors
