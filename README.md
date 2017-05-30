@@ -7,6 +7,11 @@ This application is written with and requires SDL2. For more informaion visit th
 * [SDL - Simple Directmedia Layer](https://www.libsdl.org/) - Multimedia library used.
 * [Microsoft Visual Studio 2017](https://www.visualstudio.com/) - Development tool for Windows users.
 
+#### Build
+**LINUX**
+---
+**WINDOWS**
+
 
 ## Authors
 * **Mikael Henriksson** - *Code and multimedia* - [https://github.com/miklhh](https://github.com/miklhh)
