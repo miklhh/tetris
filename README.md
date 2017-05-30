@@ -9,10 +9,10 @@ This application is written with and requires SDL2. For Windows builders, Visual
 
 
 ### Build
-**LINUX**
+** *LINUX* **
 
 
-**WINDOWS**
+** *WINDOWS* **
 
 
 ## Authors
